@@ -33,6 +33,8 @@
 		B0C831531766BD7100791EE5 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C8314C1766BD7100791EE5 /* SBJsonWriter.m */; };
 		B0C831571766D3ED00791EE5 /* PhotosAtPlaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C831551766D3EC00791EE5 /* PhotosAtPlaceController.m */; };
 		B0C831581766D3ED00791EE5 /* PhotosAtPlaceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C831561766D3ED00791EE5 /* PhotosAtPlaceController.xib */; };
+		B0C8315C1766EFD400791EE5 /* ScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C8315A1766EFD400791EE5 /* ScrollViewController.m */; };
+		B0C8315D1766EFD400791EE5 /* ScrollViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C8315B1766EFD400791EE5 /* ScrollViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,9 @@
 		B0C831541766D3EC00791EE5 /* PhotosAtPlaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosAtPlaceController.h; sourceTree = "<group>"; };
 		B0C831551766D3EC00791EE5 /* PhotosAtPlaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosAtPlaceController.m; sourceTree = "<group>"; };
 		B0C831561766D3ED00791EE5 /* PhotosAtPlaceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotosAtPlaceController.xib; sourceTree = "<group>"; };
+		B0C831591766EFD400791EE5 /* ScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollViewController.h; sourceTree = "<group>"; };
+		B0C8315A1766EFD400791EE5 /* ScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollViewController.m; sourceTree = "<group>"; };
+		B0C8315B1766EFD400791EE5 /* ScrollViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +132,9 @@
 			children = (
 				B0C831191766BCCF00791EE5 /* AppDelegate.h */,
 				B0C8311A1766BCCF00791EE5 /* AppDelegate.m */,
+				B0C831591766EFD400791EE5 /* ScrollViewController.h */,
+				B0C8315A1766EFD400791EE5 /* ScrollViewController.m */,
+				B0C8315B1766EFD400791EE5 /* ScrollViewController.xib */,
 				B0C831541766D3EC00791EE5 /* PhotosAtPlaceController.h */,
 				B0C831551766D3EC00791EE5 /* PhotosAtPlaceController.m */,
 				B0C831561766D3ED00791EE5 /* PhotosAtPlaceController.xib */,
@@ -252,6 +260,7 @@
 				B0C831321766BCCF00791EE5 /* FirstViewController.xib in Resources */,
 				B0C831351766BCCF00791EE5 /* SecondViewController.xib in Resources */,
 				B0C831581766D3ED00791EE5 /* PhotosAtPlaceController.xib in Resources */,
+				B0C8315D1766EFD400791EE5 /* ScrollViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +283,7 @@
 				B0C831521766BD7100791EE5 /* SBJsonParser.m in Sources */,
 				B0C831531766BD7100791EE5 /* SBJsonWriter.m in Sources */,
 				B0C831571766D3ED00791EE5 /* PhotosAtPlaceController.m in Sources */,
+				B0C8315C1766EFD400791EE5 /* ScrollViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

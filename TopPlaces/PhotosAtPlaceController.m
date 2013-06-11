@@ -7,6 +7,7 @@
 //
 
 #import "PhotosAtPlaceController.h"
+#import "ScrollViewController.h"
 
 @interface PhotosAtPlaceController ()
 
@@ -14,6 +15,7 @@
 
 @implementation PhotosAtPlaceController
 @synthesize photos;
+@synthesize myTitle;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,6 +35,12 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    self.title = myTitle;
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"RECENTVIEWS"]);
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,10 +68,17 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
+    NSString *picTitle = [[photos objectAtIndex:indexPath.row][@"title"] description];
+    if([picTitle isEqualToString:@""]){
+        picTitle = @"Unknown";
+    }
+    NSString *picDesc = [[photos objectAtIndex:indexPath.row][@"description"][@"_content"] description];
     // Configure the cell...
+    
+    cell.textLabel.text = picTitle;
+    cell.detailTextLabel.text = picDesc;
     
     return cell;
 }
@@ -117,6 +132,42 @@
      // ...
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
+     */
+    
+    NSDictionary *thePhoto = [photos objectAtIndex:indexPath.row];
+    ScrollViewController *newView = [[ScrollViewController alloc] initWithNibName:@"ScrollViewController" bundle:nil];
+    
+    newView.photo = thePhoto;
+    NSString *text = [thePhoto[@"title"] description];
+    if([text isEqualToString:@""]){
+        newView.myTitle = @"Unknown";
+    }else{
+        newView.myTitle = text;
+    }
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"RECENTVIEWS"]==nil){
+        NSMutableArray *newPhotos = [NSMutableArray array];
+        [newPhotos addObject:thePhoto];
+        [[NSUserDefaults standardUserDefaults] setObject:newPhotos forKey:@"RECENTVIEWS"];
+    }else{
+        NSMutableArray *tempArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"RECENTVIEWS"] mutableCopy];
+        if([tempArray indexOfObject:thePhoto] != NSNotFound){
+            [tempArray removeObjectAtIndex:[tempArray indexOfObject:thePhoto]];
+        }
+        [tempArray addObject:thePhoto];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"RECENTVIEWS"];
+        [[NSUserDefaults standardUserDefaults] setObject:tempArray forKey:@"RECENTVIEWS"];
+    
+    }
+    [self.navigationController pushViewController:newView animated:YES];
+    
+    
+    /*
+     PhotosAtPlaceController *newView = [[PhotosAtPlaceController alloc] initWithNibName:@"PhotosAtPlaceController" bundle:nil];
+     
+     newView.photos = picsAtPlace;
+     newView.myTitle = cityName;
+     
+     [self.navigationController pushViewController:newView animated:YES];
      */
 }
 

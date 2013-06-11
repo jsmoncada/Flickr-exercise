@@ -18,12 +18,12 @@
 #define FLICKR_TAGS @"tags"
 
 typedef enum {
-	FlickrFetcherPhotoFormatSquare,
-	FlickrFetcherPhotoFormatLarge,
+	FlickrFetcherPhotoFormatSquare = 1,
+	FlickrFetcherPhotoFormatLarge = 2,
 	FlickrFetcherPhotoFormatThumbnail,
 	FlickrFetcherPhotoFormatSmall,
 	FlickrFetcherPhotoFormatMedium,
-	FlickrFetcherPhotoFormatOriginal
+	FlickrFetcherPhotoFormatOriginal = 64
 } FlickrFetcherPhotoFormat;
 
 @interface FlickrFetcher : NSObject

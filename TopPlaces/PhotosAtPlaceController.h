@@ -11,4 +11,6 @@
 @interface PhotosAtPlaceController : UITableViewController
 
 @property (strong, nonatomic) NSArray *photos;
+@property (strong, nonatomic) NSString *myTitle;
+
 @end

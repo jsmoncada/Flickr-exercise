@@ -19,7 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Second", @"Second");
+        self.title = @"Recent Views";
         self.tabBarItem.image = [UIImage imageNamed:@"second"];
     }
     return self;
@@ -29,6 +29,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    /*NSMutableArray *temp =[NSMutableArray array];
+    temp = [[[NSUserDefaults standardUserDefaults] objectForKey:@"RECENTVIEWS"] mutableCopy];
+    if(temp!=nil){
+        NSLog(@"%@",temp);
+        
+    }else{
+        NSLog(@"wweh");
+    }*/
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,6 +56,9 @@
     return [photos count];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";

@@ -10,5 +10,5 @@
 
 @interface SecondViewController : UIViewController
 
-@property (strong, nonatomic) NSArray *photos;
+@property (strong, nonatomic) NSMutableArray *photos;
 @end

@@ -20,8 +20,18 @@
     // Override point for customization after application launch.
     UIViewController *viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
     UIViewController *viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
+    
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[viewController1, viewController2];
+    NSMutableArray *myArray = [NSMutableArray array];
+    UINavigationController *Navigation = [[UINavigationController alloc] initWithRootViewController:viewController1];
+    
+    [myArray addObject:Navigation];
+    
+    Navigation = [[UINavigationController alloc] initWithRootViewController:viewController2];
+    
+    [myArray addObject:Navigation];
+    
+    self.tabBarController.viewControllers = myArray;
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;

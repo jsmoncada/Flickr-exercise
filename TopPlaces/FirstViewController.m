@@ -8,6 +8,7 @@
 
 #import "FirstViewController.h"
 #import "FlickrFetcher.h"
+#import "PhotosAtPlaceController.h"
 
 @interface FirstViewController ()
 
@@ -77,8 +78,14 @@
     NSDictionary *place = [tableItems objectAtIndex:indexPath.row];
     NSString *placeId = [place objectForKey:FLICKR_PLACE_ID];
     NSArray *picsAtPlace = [FlickrFetcher photosAtPlace:placeId];
+    NSString *placeName = [place objectForKey:FLICKR_PLACE_NAME];
+    NSString *cityName = [[placeName componentsSeparatedByString:@", "] objectAtIndex:0];
+    PhotosAtPlaceController *newView = [[PhotosAtPlaceController alloc] initWithNibName:@"PhotosAtPlaceController" bundle:nil];
     
-    //[self.navigationController pushViewController:articleView animated:YES];
+    newView.photos = picsAtPlace;
+    newView.myTitle = cityName;
+    
+    [self.navigationController pushViewController:newView animated:YES];
     
 }
 
