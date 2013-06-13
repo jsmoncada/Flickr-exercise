@@ -414,6 +414,7 @@
 				B0C8313A1766BCCF00791EE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

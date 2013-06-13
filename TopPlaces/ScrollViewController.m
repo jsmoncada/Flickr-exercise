@@ -36,17 +36,20 @@
     NSURL *url = [NSURL URLWithString:path];
     NSData *imageData = [NSData dataWithContentsOfURL:url];
     UIImage *image = [UIImage imageWithData:imageData];
-    imageView = [[UIImageView alloc] init];
+    //imageView = [[UIImageView alloc] init];
     imageView.image = image;
     imageView.frame = CGRectMake(0, 0, imageView.image.size.width, imageView.image.size.height);
     
     self.scrollView.frame = self.view.bounds;
-    self.scrollView.minimumZoomScale = 0.5;
+    self.scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width;
     self.scrollView.maximumZoomScale = 6.0;
     self.scrollView.contentSize = imageView.image.size;
-    [self.scrollView addSubview:imageView];
     self.title = myTitle;
     scrollView.delegate = self;
+    [scrollView setZoomScale:self.scrollView.minimumZoomScale];
+    self.view = scrollView;
+    
+    [self.scrollView addSubview:imageView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,7 +60,7 @@
 
 -(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
+    NSLog(@"wweh");
     return imageView;
 }
-
 @end

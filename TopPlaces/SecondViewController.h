@@ -10,5 +10,6 @@
 
 @interface SecondViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *photos;
 @end
