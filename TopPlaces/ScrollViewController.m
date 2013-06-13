@@ -60,7 +60,7 @@
     self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
 
     //[imageView setUserInteractionEnabled:YES];
-    [self.scrollView setZoomScale:self.scrollView.minimumZoomScale];
+    [scrollView setZoomScale:self.scrollView.minimumZoomScale];
     
 }
 
@@ -72,6 +72,6 @@
 
 -(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    return self.imageView;
+    return imageView;
 }
 @end
