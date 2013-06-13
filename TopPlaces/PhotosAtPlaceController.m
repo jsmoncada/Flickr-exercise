@@ -38,7 +38,12 @@
 
     self.title = myTitle;
 }
-
+/*
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"RECENTVIEWS"]);
+}
+*/
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

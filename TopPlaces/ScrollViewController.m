@@ -16,7 +16,7 @@
 @implementation ScrollViewController
 @synthesize photo;
 @synthesize imageView;
-@synthesize scrollView;
+
 @synthesize myTitle;
 @synthesize imageData;
 
@@ -37,6 +37,8 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSURL *url = [NSURL URLWithString:path];
     
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
         imageData = [NSData dataWithContentsOfURL:url];
@@ -46,20 +48,20 @@
             imageView.image = image;
             imageView.frame = CGRectMake(0, 0, imageView.image.size.width, imageView.image.size.height);
             
-            self.scrollView.frame = self.view.bounds;
-            self.scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width;
-            self.scrollView.maximumZoomScale = 6.0;
-            self.scrollView.contentSize = imageView.image.size;
+            scrollView.frame = self.view.bounds;
+            scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width;
+            scrollView.maximumZoomScale = 6.0;
+            scrollView.contentSize = imageView.image.size;
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         });
     });
     
     self.title = myTitle;
     scrollView.delegate = self;
-    [scrollView setZoomScale:self.scrollView.minimumZoomScale];
-    self.view = scrollView;
+    [scrollView setZoomScale:scrollView.minimumZoomScale];
+    [self.view addSubview:scrollView];
     
-    [self.scrollView addSubview:imageView];
+    [scrollView addSubview:imageView];
 }
 
 - (void)didReceiveMemoryWarning
