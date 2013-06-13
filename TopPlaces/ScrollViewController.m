@@ -70,7 +70,6 @@
 
 -(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    NSLog(@"wweh");
     return imageView;
 }
 @end

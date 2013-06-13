@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
+@interface SecondViewController : UIViewController{
+    BOOL isEditable;
+    UIBarButtonItem *edit;
+    UIBarButtonItem *done;
+}
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *photos;

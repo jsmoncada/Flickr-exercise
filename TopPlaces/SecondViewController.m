@@ -29,6 +29,7 @@
 -(void) viewDidAppear:(BOOL)animate
 {
     [super viewDidAppear:animate];
+    //[self.tableView setEditing: YES animated: YES];
     NSMutableArray *temp =[NSMutableArray array];
     temp = [[[NSUserDefaults standardUserDefaults] objectForKey:@"RECENTVIEWS"] mutableCopy];
     if(temp!=nil){
@@ -40,10 +41,26 @@
     }
     
 }
+-(void)editTable
+{
+    [tableView setEditing: YES animated: YES];
+    self.navigationItem.rightBarButtonItem = done;
+}
+-(void)isDone
+{
+    [tableView setEditing: NO animated: YES];
+    self.navigationItem.rightBarButtonItem = edit;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    isEditable = NO;
+    edit = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editTable)];
+    self.navigationItem.rightBarButtonItem = edit;
+    done = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(isDone)];
+
+    
     NSMutableArray *temp =[NSMutableArray array];
     temp = [[[NSUserDefaults standardUserDefaults] objectForKey:@"RECENTVIEWS"] mutableCopy];
     if(temp!=nil){
@@ -54,7 +71,16 @@
         NSLog(@"No Recent Views");
     }
 }
-
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        NSDictionary *deleteMe = [photos objectAtIndex:indexPath.row];
+        [photos removeObjectAtIndex:[photos indexOfObject:deleteMe]];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+        //[self.tableView reloadData];
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
