@@ -15,5 +15,6 @@
 //@property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) NSString *myTitle;
+@property (strong, nonatomic) NSData *imageData;
 
 @end

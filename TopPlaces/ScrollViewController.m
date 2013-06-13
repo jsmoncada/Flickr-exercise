@@ -18,6 +18,7 @@
 @synthesize imageView;
 @synthesize scrollView;
 @synthesize myTitle;
+@synthesize imageData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,17 +34,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     NSString *path = [FlickrFetcher urlStringForPhotoWithFlickrInfo:self.photo format:FlickrFetcherPhotoFormatLarge];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSURL *url = [NSURL URLWithString:path];
-    NSData *imageData = [NSData dataWithContentsOfURL:url];
-    UIImage *image = [UIImage imageWithData:imageData];
-    //imageView = [[UIImageView alloc] init];
-    imageView.image = image;
-    imageView.frame = CGRectMake(0, 0, imageView.image.size.width, imageView.image.size.height);
     
-    self.scrollView.frame = self.view.bounds;
-    self.scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width;
-    self.scrollView.maximumZoomScale = 6.0;
-    self.scrollView.contentSize = imageView.image.size;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+    dispatch_async(queue, ^{
+        imageData = [NSData dataWithContentsOfURL:url];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = [UIImage imageWithData:imageData];
+            //imageView = [[UIImageView alloc] init];
+            imageView.image = image;
+            imageView.frame = CGRectMake(0, 0, imageView.image.size.width, imageView.image.size.height);
+            
+            self.scrollView.frame = self.view.bounds;
+            self.scrollView.minimumZoomScale = scrollView.frame.size.width / imageView.frame.size.width;
+            self.scrollView.maximumZoomScale = 6.0;
+            self.scrollView.contentSize = imageView.image.size;
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        });
+    });
+    
     self.title = myTitle;
     scrollView.delegate = self;
     [scrollView setZoomScale:self.scrollView.minimumZoomScale];

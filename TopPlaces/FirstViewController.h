@@ -10,5 +10,6 @@
 
 @interface FirstViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *myTable;
-@property (strong, nonatomic) NSArray *tableItems;
+@property (strong, nonatomic) NSMutableArray *tableItems;
+@property (strong, nonatomic) NSMutableDictionary *sections;
 @end

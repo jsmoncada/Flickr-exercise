@@ -15,7 +15,7 @@
 @end
 
 @implementation FirstViewController
-@synthesize tableItems;
+@synthesize tableItems, sections;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,7 +30,38 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    tableItems = [FlickrFetcher topPlaces];
+    tableItems = [[FlickrFetcher topPlaces] mutableCopy];
+    self.sections = [[NSMutableDictionary alloc] init];
+    NSLog(@"%@",tableItems);
+    [tableItems sortUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:FLICKR_PLACE_NAME ascending:YES], nil]];
+    BOOL found = NO;
+    NSDictionary *place = nil;
+    int ctr = 0;
+    for (ctr = 0;ctr < [tableItems count];ctr++)
+    {
+        place = [tableItems objectAtIndex:ctr];
+        NSString *c = [[place objectForKey:FLICKR_PLACE_NAME] substringToIndex:1];
+        
+        found = NO;
+        
+        int ctr2 = 0;
+        for (ctr2 = 0;ctr2 < [[self.sections allKeys] count];ctr2++)
+        {
+            NSString *str = [[self.sections allKeys] objectAtIndex:ctr2];
+            if ([str isEqualToString:c])
+            {
+                found = YES;
+                [[self.sections objectForKey:str] addObject:place];
+                break;
+            }
+        }
+        
+        if (!found)
+        {
+            [self.sections setValue:[[NSMutableArray alloc] init] forKey:c];
+            [[self.sections objectForKey:c] addObject:place];
+        }
+    }
     
 }
 
@@ -41,11 +72,18 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[self.sections allKeys] count];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tableItems count];
+    return [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:section]] count];
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:section];
+}
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return [[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -58,7 +96,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
     
-    NSDictionary *topPlace = [tableItems objectAtIndex:indexPath.row];
+    //NSDictionary *topPlace = [tableItems objectAtIndex:indexPath.row];
+    NSDictionary *topPlace = [[self.sections valueForKey:[[[self.sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     NSString *placeName = [topPlace objectForKey:FLICKR_PLACE_NAME];
     NSArray *placeArray = [placeName componentsSeparatedByString:@", "];
     NSString *placeCityName = [placeArray objectAtIndex:0];

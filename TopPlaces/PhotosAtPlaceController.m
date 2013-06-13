@@ -133,7 +133,7 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
-    
+
     NSDictionary *thePhoto = [photos objectAtIndex:indexPath.row];
     ScrollViewController *newView = [[ScrollViewController alloc] initWithNibName:@"ScrollViewController" bundle:nil];
     
