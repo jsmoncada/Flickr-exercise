@@ -11,9 +11,9 @@
 @interface ScrollViewController : UIViewController <UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSDictionary *photo;
-//@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 //@property (strong, nonatomic) UIImageView *imageView;
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) NSString *myTitle;
 @property (strong, nonatomic) NSData *imageData;
 
