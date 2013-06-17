@@ -77,6 +77,7 @@
         // Delete the row from the data source
         NSDictionary *deleteMe = [photos objectAtIndex:indexPath.row];
         [photos removeObjectAtIndex:[photos indexOfObject:deleteMe]];
+        [[NSUserDefaults standardUserDefaults] setObject:photos forKey:@"RECENTVIEWS"];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         //[self.tableView reloadData];
     }
